@@ -1,0 +1,47 @@
+    version: '3'
+    
+    services:
+    
+      djangoapp:
+        build: .
+        volumes:
+          - .:/blog
+          - static_volume:/blog/static
+        networks:
+          - nginx_network
+          - database1_network
+        depends_on:
+          - database1
+    
+      nginx:
+        image: nginx
+        ports:
+          - 8000:8000
+        volumes:
+          - ./config/nginx/conf.d:/etc/nginx/conf.d
+          - static_volume:/blog/static
+          
+        depends_on:
+          - webs_djangoapp
+        networks:
+          - nginx_network
+    
+      database1:
+        image: postgres:10
+        env_file:
+          - config/db/database1_env
+        networks:
+          - database1_network
+        volumes:
+          - database1_volume:/var/lib/postgresql/data
+    
+    networks:
+      nginx_network:
+        driver: bridge
+      database1_network:
+        driver: bridge
+    
+    volumes:
+      database1_volume:
+      static_volume:
+     

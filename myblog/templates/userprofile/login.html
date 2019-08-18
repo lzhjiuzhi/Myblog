@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% load staticfiles %}
+{% block title %} login {% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <div class="col-12">
+                <br>
+                <h5>还没有账号？</h5>
+                <h5>点击<a href='{% url "userprofile:register" %}'>注册账号</a>加入我们吧！</h5>
+                <br>
+                <form method="post" action=".">
+                    ...
+                </form>
+            </div>
+
+            <form method="post" action=".">
+                {% csrf_token %}
+                <!-- 账号 -->
+                <div class="form-group">
+                    <label for="username">account</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <!-- 密码 -->
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
